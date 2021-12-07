@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012-2016, Jyri J. Virkki
+ *  Copyright (c) 2012-2019, Jyri J. Virkki
  *  All rights reserved.
  *
  *  This file is under BSD license. See LICENSE file.
@@ -88,7 +88,7 @@ int bloom_init(struct bloom * bloom, int entries, double error)
 {
   bloom->ready = 0;
 
-  if (entries < 1 || error == 0) {
+  if (entries < 1000 || error == 0) {
     return 1;
   }
 
@@ -111,9 +111,9 @@ int bloom_init(struct bloom * bloom, int entries, double error)
   bloom->hashes = (int)ceil(0.693147180559945 * bloom->bpe);  // ln(2)
 
   bloom->bf = (unsigned char *)calloc(bloom->bytes, sizeof(unsigned char));
-  if (bloom->bf == NULL) {
+  if (bloom->bf == NULL) {                                   // LCOV_EXCL_START
     return 1;
-  }
+  }                                                          // LCOV_EXCL_STOP
 
   bloom->ready = 1;
   return 0;

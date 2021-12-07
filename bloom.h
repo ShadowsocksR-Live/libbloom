@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012-2016, Jyri J. Virkki
+ *  Copyright (c) 2012-2017, Jyri J. Virkki
  *  All rights reserved.
  *
  *  This file is under BSD license. See LICENSE file.
@@ -56,6 +56,7 @@ struct bloom
  * -----------
  *     bloom   - Pointer to an allocated struct bloom (see above).
  *     entries - The expected number of entries which will be inserted.
+ *               Must be at least 1000 (in practice, likely much larger).
  *     error   - Probability of collision (as long as entries are not
  *               exceeded).
  *
@@ -78,7 +79,7 @@ int bloom_init_size(struct bloom * bloom, int entries, double error,
 
 /** ***************************************************************************
  * Check if the given element is in the bloom filter. Remember this may
- * return false positive if a collision occured.
+ * return false positive if a collision occurred.
  *
  * Parameters:
  * -----------
